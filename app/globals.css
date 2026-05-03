@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary:       #FFFFFF;
+  --bg-secondary:     #F2F2F7;
+  --bg-tertiary:      #FFFFFF;
+  --bg-elevated:      rgba(255,255,255,0.85);
+
+  --text-primary:     #1D1D1F;
+  --text-secondary:   #6E6E73;
+  --text-tertiary:    #AEAEB2;
+  --text-quaternary:  #C7C7CC;
+
+  --separator:        rgba(60,60,67,0.12);
+  --separator-thick:  rgba(60,60,67,0.20);
+
+  --fill-primary:     rgba(120,120,128,0.20);
+  --fill-secondary:   rgba(120,120,128,0.16);
+  --fill-tertiary:    rgba(118,118,128,0.12);
+  --fill-quaternary:  rgba(116,116,128,0.08);
+
+  --blue:    #0071E3;
+  --green:   #34C759;
+  --red:     #FF3B30;
+  --orange:  #FF9500;
+  --grey:    #8E8E93;
+
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   20px;
+  --radius-pill: 980px;
+
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:   0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:   0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.07);
+
+  --ease-apple:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast:   160ms;
+  --duration-normal: 240ms;
+  --duration-slow:   380ms;
+
+  --font:         -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --font-mono:    'SF Mono', 'Menlo', 'Monaco', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.47;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apple type scale */
+.text-largetitle { font-size: 34px; font-weight: 700; letter-spacing: -0.4px; line-height: 1.12; font-family: var(--font-display); }
+.text-title1     { font-size: 28px; font-weight: 700; letter-spacing: -0.3px; line-height: 1.18; font-family: var(--font-display); }
+.text-title2     { font-size: 22px; font-weight: 700; letter-spacing: -0.2px; line-height: 1.22; }
+.text-title3     { font-size: 20px; font-weight: 600; letter-spacing: -0.1px; line-height: 1.25; }
+.text-headline   { font-size: 17px; font-weight: 600; letter-spacing: -0.05px; line-height: 1.35; }
+.text-body       { font-size: 17px; font-weight: 400; line-height: 1.47; }
+.text-callout    { font-size: 16px; font-weight: 400; line-height: 1.44; }
+.text-subhead    { font-size: 15px; font-weight: 400; line-height: 1.40; }
+.text-footnote   { font-size: 13px; font-weight: 400; line-height: 1.38; }
+.text-caption1   { font-size: 12px; font-weight: 400; line-height: 1.33; }
+.text-caption2   { font-size: 11px; font-weight: 400; line-height: 1.18; }
+
+/* Page animation */
+.page-enter {
+  animation: pageIn 320ms var(--ease-out) both;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered list children */
+.stagger-children > * {
+  animation: fadeUp 280ms var(--ease-out) both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 40ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 80ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 160ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 200ms; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Shimmer skeleton */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--fill-tertiary) 25%, var(--fill-secondary) 50%, var(--fill-tertiary) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* Card interactive */
+.card-interactive {
+  transition: transform var(--duration-normal) var(--ease-apple),
+              box-shadow var(--duration-normal) var(--ease-apple);
+}
+.card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.card-interactive:active {
+  transform: scale(0.98);
+  transition-duration: 120ms;
+}
+
+/* Button haptic */
+button:not(:disabled):active { transform: scale(0.97); }
+
+/* Tabular numbers for prices */
+.tabular-nums { font-variant-numeric: tabular-nums; }
+
+/* Hairline separator */
+.hairline {
+  border-color: var(--separator);
+}
+
+/* Scrollable chip row — hide scrollbar */
+.chips-scroll {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.chips-scroll::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

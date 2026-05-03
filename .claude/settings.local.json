@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p ~/.lazyweb)",
+      "Bash(echo -n \"b89dd821-6117-4c52-ba9a-2e021140da28\")",
+      "Bash(claude plugin *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\jardi\\\\Documents\\\\GitHub\\\\zaylo\" -Force)",
+      "Bash(Select-Object -Property Name, PSIsContainer)",
+      "Bash(Format-Table -AutoSize)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\jardi\\\\Documents\\\\GitHub\\\\zaylo\" -Force -Recurse -Depth 3 | Select-Object -Property FullName, PSIsContainer | Where-Object {$_.FullName.Length -lt 200} | Sort-Object FullName)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\jardi\\\\Documents\\\\GitHub\\\\zaylo\" | Where-Object {$_.PSIsContainer})",
+      "Bash(Select-Object Name, FullName, PSIsContainer)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\jardi\\\\Documents\\\\GitHub\\\\zaylo\" -Directory -Force | Where-Object { $_.Name -notin @\\('.git', '.claude', '.agents'\\) } | Select-Object Name)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\jardi\\\\Documents\\\\GitHub\\\\zaylo\" -Force | Where-Object { $_.Name -notin @\\('.git', '.claude', '.agents'\\) })",
+      "PowerShell(Get-ChildItem *)",
+      "mcp__supabase__list_tables",
+      "mcp__supabase__list_migrations",
+      "mcp__supabase__get_project_url",
+      "mcp__supabase__get_publishable_keys",
+      "Bash(npx create-next-app@14 . --typescript --tailwind --eslint --app --no-src-dir --import-alias=\"@/*\" --yes)",
+      "Bash(npx create-next-app@14 .nextapp-temp --typescript --tailwind --eslint --app --no-src-dir --import-alias=\"@/*\" --yes)",
+      "Bash(npx create-next-app@14 nextapp-temp --typescript --tailwind --eslint --app --no-src-dir --import-alias=\"@/*\" --yes)",
+      "Bash(npm install *)",
+      "mcp__supabase__apply_migration",
+      "mcp__supabase__execute_sql",
+      "mcp__supabase__generate_typescript_types",
+      "Bash(python3 *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/browse)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/list)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/looking)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/api/areas)",
+      "Bash(curl -s http://localhost:3000/api/areas)",
+      "Bash(npx plugins *)",
+      "Bash(git add *)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "supabase"
+  ]
+}

@@ -1,0 +1,32 @@
+import { NextRequest, NextResponse } from "next/server";
+import { createServiceClient } from "@/lib/supabase/server";
+import { auth } from "@clerk/nextjs/server";
+import { subAreaSchema } from "@/lib/validations/area.schema";
+
+async function requireAdmin() {
+  const { userId, sessionClaims } = await auth();
+  if (!userId) return false;
+  return (sessionClaims?.publicMetadata as { role?: string })?.role === "admin";
+}
+
+export async function POST(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  if (!(await requireAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
+  const body = await req.json();
+  const parsed = subAreaSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+  }
+  const supabase = createServiceClient();
+  const { data, error } = await supabase
+    .from("sub_areas")
+    .insert({ area_id: params.id, name: parsed.data.name })
+    .select()
+    .single();
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json(data, { status: 201 });
+}
