@@ -2,8 +2,8 @@ import { createServerClient as createSSRClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import type { Database } from "./types";
 
-export function createServerClient() {
-  const cookieStore = cookies();
+export async function createServerClient() {
+  const cookieStore = await cookies();
   return createSSRClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
