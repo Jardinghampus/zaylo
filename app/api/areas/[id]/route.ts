@@ -10,17 +10,18 @@ async function requireAdmin() {
 
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   if (!(await requireAdmin())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
+  const { id } = await params;
   const supabase = createServiceClient();
 
   const { count } = await supabase
     .from("listings")
     .select("id", { count: "exact", head: true })
-    .eq("area_id", params.id)
+    .eq("area_id", id)
     .neq("status", "removed");
 
   if (count && count > 0) {
@@ -30,7 +31,7 @@ export async function DELETE(
     );
   }
 
-  const { error } = await supabase.from("areas").delete().eq("id", params.id);
+  const { error } = await supabase.from("areas").delete().eq("id", id);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json({ success: true });
 }

@@ -11,11 +11,12 @@ async function requireAdmin() {
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   if (!(await requireAdmin())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
+  const { id } = await params;
   const body = await req.json();
   const parsed = subAreaSchema.safeParse(body);
   if (!parsed.success) {
@@ -24,7 +25,7 @@ export async function POST(
   const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("sub_areas")
-    .insert({ area_id: params.id, name: parsed.data.name })
+    .insert({ area_id: id, name: parsed.data.name })
     .select()
     .single();
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
