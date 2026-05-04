@@ -6,9 +6,13 @@ import { createServerClient } from "@/lib/supabase/server";
 import type { AreaWithSubAreas } from "@/types";
 
 async function getAreas(): Promise<AreaWithSubAreas[]> {
-  const supabase = await createServerClient();
-  const { data } = await supabase.from("areas").select("*, sub_areas(id,name)").order("name");
-  return (data ?? []) as AreaWithSubAreas[];
+  try {
+    const supabase = await createServerClient();
+    const { data } = await supabase.from("areas").select("*, sub_areas(id,name)").order("name");
+    return (data ?? []) as AreaWithSubAreas[];
+  } catch {
+    return [];
+  }
 }
 
 export default async function HomePage() {
