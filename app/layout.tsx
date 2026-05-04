@@ -17,13 +17,14 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className="min-h-dvh bg-bg-primary font-apple antialiased">
-          <Providers>{children}</Providers>
-        </body>
-      </html>
-    </ClerkProvider>
+  const body = (
+    <html lang="en">
+      <body className="min-h-dvh bg-bg-primary font-apple antialiased">
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
+
+  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) return body;
+  return <ClerkProvider>{body}</ClerkProvider>;
 }

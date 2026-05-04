@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
-import { auth } from "@clerk/nextjs/server";
-
-async function requireAdmin() {
-  const { userId, sessionClaims } = await auth();
-  if (!userId) return false;
-  return (sessionClaims?.publicMetadata as { role?: string })?.role === "admin";
-}
+import { requireAdmin } from "@/lib/require-admin";
 
 export async function PATCH(
   req: NextRequest,

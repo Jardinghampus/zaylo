@@ -9,6 +9,9 @@ const isAdminApiRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
+  // Demo mode: no Clerk keys configured — allow all routes
+  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) return;
+
   if (isAdminRoute(req) || isAdminApiRoute(req)) {
     const { userId, sessionClaims } = await auth();
     if (!userId) {

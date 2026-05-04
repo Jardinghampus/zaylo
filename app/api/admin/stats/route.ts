@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdmin } from "@/lib/require-admin";
 
 export async function GET() {
-  const { userId, sessionClaims } = await auth();
-  const isAdmin = userId && (sessionClaims?.publicMetadata as { role?: string })?.role === "admin";
-  if (!isAdmin) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  if (!(await requireAdmin())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
 
   const supabase = createServiceClient();
 
