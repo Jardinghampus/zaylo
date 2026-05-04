@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ListingForm } from "@/components/listing/ListingForm";
 
 export const metadata = { title: "List Your Property — Zaylo" };
@@ -9,7 +10,7 @@ export default function ListPage() {
       <header className="sticky top-0 z-30 bg-[rgba(255,255,255,0.85)] backdrop-blur-md border-b border-[var(--separator)]">
         <div className="max-w-content mx-auto px-4 h-14 flex items-center justify-center relative">
           <span className="text-headline font-semibold">List Property</span>
-          <a href="/" className="absolute left-4 text-apple-blue text-subhead hover:opacity-70 transition-opacity">Cancel</a>
+          <Link href="/" className="absolute left-4 text-apple-blue text-subhead hover:opacity-70 transition-opacity">Cancel</Link>
         </div>
       </header>
 
